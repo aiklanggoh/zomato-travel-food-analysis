@@ -43,3 +43,42 @@ def extract_restaurant_data(data, country_codes_dict):
                 cuisines
             ])
     return extracted_data
+
+def write_to_csv(output_file, data):
+    """Write the extracted data to a CSV file."""
+    with open(output_file, 'w', newline='') as outfile:
+        writer = csv.writer(outfile)
+        # Write the header
+        writer.writerow([
+            'Restaurant Id', 
+            'Restaurant Name', 
+            'Country', 
+            'City', 
+            'User Rating Votes', 
+            'User Aggregate Rating', 
+            'Cuisines'
+        ])
+        # Write the extracted data
+        writer.writerows(data)
+
+def main():
+    input_file = 'restaurant_data.json'
+    output_file = 'restaurants.csv'
+    country_file = 'Country-Code.xlsx'
+    
+    # Load JSON data
+    data = load_json_file(input_file)
+
+    # Load country codes
+    country_codes = load_country_codes(country_file)
+    
+    # Extract required restaurant data
+    extracted_data = extract_restaurant_data(data, country_codes)
+    
+    # Write extracted data to CSV
+    write_to_csv(output_file, extracted_data)
+    
+    print(f"Task 1: Data has been successfully written to {output_file}")
+
+if __name__ == "__main__":
+    main()
