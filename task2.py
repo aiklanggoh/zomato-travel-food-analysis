@@ -3,7 +3,6 @@ and store the data as restaurant_events.csv."""
 
 import json
 import csv
-import datetime
 
 def load_json_file(input_file):
     """Load the JSON data from the file."""

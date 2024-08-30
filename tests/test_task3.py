@@ -2,7 +2,6 @@ import unittest
 import json
 import os
 import sys
-import pandas as pd
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from task3 import load_json_file, determine_rating_thresholds
