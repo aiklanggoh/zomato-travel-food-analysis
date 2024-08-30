@@ -47,17 +47,19 @@ pytest
 ## Cloud Deployment
 If I were to design and deploy this solution, my choice would be AWS Cloud Services. I have chosen Amazon S3, AWS Lambda, and AWS Step Functions as the core components. This setup automates the process of data ingestion, transformation, and storage while ensuring the solution remains simple, scalable, and cost-effective.
 
-**Data Ingestion and Storage**
+### Data Ingestion and Storage
 The process begins with an Amazon S3 bucket, which serves as the source repository for the ``restaurant_data.json`` file. 
 
-**Data Processing with AWS Lambda**
+### Data Processing with AWS Lambda
 Once the JSON file is uploaded to the source S3 bucket, an S3 event notification triggers an AWS Step Functions workflow. The first step in this workflow invokes an AWS Lambda function, which is responsible for processing the JSON data. The Lambda function runs the Python scripts I’ve developed to extract and transform the data from the JSON format into the desired CSV format. 
 
-**Orchestration with AWS Step Functions**
+### Orchestration with AWS Step Functions
 AWS Step Functions orchestrate the entire data processing workflow, coordinating each step in the sequence. After the initial data transformation by the Lambda function, the workflow can include additional steps, such as validating the processed data or handling errors. Step Functions provide a clear visual representation of the workflow, making it easier to manage complex processes and monitor each step's execution.
 
-**Storing Processed Data**
+### Storing Processed Data
 Once the data extraction and transformation are completed, the final step in the Step Functions workflow stores the resulting CSV files in a separate S3 bucket. This destination bucket ensures that the processed data is securely stored and easily retrievable for future use, such as data analysis or reporting.
+
+You will have to modify ``requirements.txt`` by adding ``boto3`` and the code ``import boto3`` in order to be cloud-deployable.
 
 ## Architecture Diagram
 ![title](images/architecture_diagram.png)
@@ -91,23 +93,23 @@ These assumptions help guide the implementation and usage of this project. If an
 
 2. **Choice of AWS Lambda for Data Processing**
     - I chose AWS Lambda as the primary compute service for processing the JSON data and generating CSV files if I were to design and deploy on cloud.
-
-    - Reasoning:
-        - Serverless Architecture: Lambda allows for a fully serverless architecture, which reduces the need for server management and scales automatically based on the workload. This aligns well with the goal of processing daily data updates without requiring manual intervention.
-        - Cost-Effectiveness: Lambda’s pay-per-use model ensures that costs are kept low, as we only pay for the compute time actually used during the processing of the data.
-        - Integration with S3: Lambda integrates seamlessly with S3, allowing for easy triggering of functions upon the upload of a new JSON file. This event-driven model ensures that the workflow is automated and efficient.
+    
+    The benefits of using AWS Lambda would be:
+    - Serverless Architecture: Lambda allows for a fully serverless architecture, which reduces the need for server management and scales automatically based on the workload. This aligns well with the goal of processing daily data updates without requiring manual intervention.
+    - Cost-Effectiveness: Lambda’s pay-per-use model ensures that costs are kept low, as we only pay for the compute time actually used during the processing of the data.
+    - Integration with S3: Lambda integrates seamlessly with S3, allowing for easy triggering of functions upon the upload of a new JSON file. This event-driven model ensures that the workflow is automated and efficient.
 
 3. **Use of Amazon S3 for Data Storage**
     - S3 was chosen to store both the input JSON files and the output CSV files.
 
-    - Reasoning:
-        - Durability and Scalability: S3 provides 99.999999999% durability and virtually unlimited scalability, making it an ideal choice for storing both the raw JSON data and the processed CSV files.
-        - Ease of Access: S3 allows easy access to the data from multiple AWS services, such as Lambda, and also provides public or restricted access to the files as needed.
-        - Cost: S3 offers a low-cost storage solution, especially for the relatively small size of daily JSON and CSV files generated in this project.
+    The benefits of using S3 would be:
+    - Durability and Scalability: S3 provides 99.999999999% durability and virtually unlimited scalability, making it an ideal choice for storing both the raw JSON data and the processed CSV files.
+    - Ease of Access: S3 allows easy access to the data from multiple AWS services, such as Lambda, and also provides public or restricted access to the files as needed.
+    - Cost: S3 offers a low-cost storage solution, especially for the relatively small size of daily JSON and CSV files generated in this project.
 
 4. **Use of Event-Driven Processing**
     - The processing workflow is triggered by an S3 event when a new JSON file is uploaded.
 
-    - Reasoning**:
-        - Automation: Event-driven processing ensures that the workflow is fully automated, with no need for manual intervention to start the data processing. This fits the goal of minimizing operational overhead.
-        - Real-Time Processing: By triggering processing as soon as new data is available, the system ensures that the CSV files are up to date with the latest data, supporting timely decision-making and reporting.
+    The benefits of using event-driven processing like step functions would be:
+    - Automation: Event-driven processing ensures that the workflow is fully automated, with no need for manual intervention to start the data processing. This fits the goal of minimizing operational overhead.
+    - Real-Time Processing: By triggering processing as soon as new data is available, the system ensures that the CSV files are up to date with the latest data, supporting timely decision-making and reporting.
