@@ -103,7 +103,7 @@ These assumptions help guide the implementation and usage of this project. If an
     - S3 was chosen to store both the input JSON files and the output CSV files.
 
     The benefits of using S3 would be:
-    - Durability and Scalability: S3 provides 99.999999999% durability and virtually unlimited scalability, making it an ideal choice for storing both the raw JSON data and the processed CSV files.
+    - Durability and Scalability: S3 provides high durability and high scalability, making it an ideal choice for storing both the raw JSON data and the processed CSV files.
     - Ease of Access: S3 allows easy access to the data from multiple AWS services, such as Lambda, and also provides public or restricted access to the files as needed.
     - Cost: S3 offers a low-cost storage solution, especially for the relatively small size of daily JSON and CSV files generated in this project.
 
