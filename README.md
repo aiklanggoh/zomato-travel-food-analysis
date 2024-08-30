@@ -11,7 +11,7 @@ This is a data extraction project that helps with data analysis. This applicatio
 - [Assumptions](#assumptions)
 - [Design Decisions](#design-decisions)
 
-## Prerequsities
+## Prerequisites
 To run the project, ensure that the following are installed on your device.
 - Python 3.x
 - Jupyter Notebook
