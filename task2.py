@@ -43,3 +43,39 @@ def extract_restaurant_events(data):
                             event_end_date
                         ])
     return extracted_data
+
+def write_to_csv(output_file, data):
+    """Write the extracted data to a CSV file."""
+    with open(output_file, 'w', newline='') as outfile:
+        writer = csv.writer(outfile)
+        # Write the header
+        writer.writerow([
+            'Event Id',
+            'Restaurant Id', 
+            'Restaurant Name',
+            'Photo URL',
+            'Event Title',
+            'Event Start Date', 
+            'Event End Date',
+        ])
+        # Write the extracted data
+        writer.writerows(data)
+
+def main():
+    input_file = 'restaurant_data.json'
+    output_file = 'restaurant_events.csv'
+    
+    # Load JSON data
+    data = load_json_file(input_file)
+    
+    # Extract the list of restaurants that have past event in the month of April 2019
+    extracted_data = extract_restaurant_events(data)
+    
+    # Write the extracted data to a CSV file
+    write_to_csv(output_file, extracted_data)
+
+    print(f"Task 2: Data has been successfully written to {output_file}")
+
+
+if __name__ == '__main__':
+    main()
