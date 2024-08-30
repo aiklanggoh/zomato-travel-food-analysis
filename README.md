@@ -37,7 +37,7 @@ pip install -r requirements.txt
 ## Usage
 1. Run the scripts
 ```bash
-python3 [filename].py
+python [filename].py
 ```
 2. Run Unit Test
 ```bash
